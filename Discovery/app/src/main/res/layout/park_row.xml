@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/row_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/row_park_imageView"
+        android:layout_width="138dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:padding="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/banner_intro" />
+
+    <TextView
+        android:id="@+id/row_parkName_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/row_park_imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/row_park_type_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="#474141"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/row_park_imageView"
+        app:layout_constraintTop_toBottomOf="@+id/row_parkName_textView" />
+
+
+    <TextView
+        android:id="@+id/row_park_state_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="30dp"
+        android:text="TextView"
+        android:textColor="#514949"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/row_park_imageView"
+        app:layout_constraintTop_toBottomOf="@+id/row_park_type_textView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ToggleButton
+        android:id="@+id/fav_btn"
+        android:layout_width="33dp"
+        android:layout_height="28dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/toggle_selector"
+
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toEndOf="@+id/row_park_imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.882"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="3dp"
+        android:background="#000000"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/row_park_imageView">
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash"
+    tools:context=".Activity.SplashActivity">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="75dp"
+        android:layout_height="69dp"
+
+        android:layout_centerInParent="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:indeterminate="true" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:text="Discover \n a new place"
+        android:textAlignment="center"
+        android:textColor="#131310"
+        android:textSize="34sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/textViewTeam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="640dp"
+        android:layout_marginLeft="220dp"
+        android:text="Presented by: \n Danich George Rolando"
+        android:textAlignment="center"
+        android:textColor="#FFEB3B"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+
+
+</RelativeLayout>

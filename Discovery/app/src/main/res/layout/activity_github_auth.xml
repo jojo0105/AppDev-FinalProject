@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#101010"
+    tools:context=".GithubAuthActivity">
+
+    <ImageView
+        android:id="@+id/imageViewEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.184"
+        app:srcCompat="@drawable/github_img" />
+
+
+    <EditText
+        android:id="@+id/inputEmail_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/button_background_green2"
+        android:ems="10"
+        android:hint=" Email"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:textColorHint="#97727C6B"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewEmail"
+        app:layout_constraintVertical_bias="0.12"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="325dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#30D191"
+        android:backgroundTintMode="screen"
+
+        android:shadowColor="#A84C4C"
+        android:text="Github Login"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="#101010"
+        android:textColorHighlight="#813030"
+        android:textColorHint="#477735"
+        android:textColorLink="#9A2D2D"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputEmail_editText"
+        app:layout_constraintVertical_bias="0.095"
+        app:rippleColor="#24AF39"
+        app:strokeColor="#C32828"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

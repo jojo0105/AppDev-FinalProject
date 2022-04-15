@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "13789365688",
+    "project_id": "discovery-e23b6",
+    "storage_bucket": "discovery-e23b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:13789365688:android:682e0855171d89f191fb4d",
+        "android_client_info": {
+          "package_name": "com.example.discovery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "13789365688-1crb7r9n1sn2atnil18419s0lsh26isp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwfoxKxpRAiCdrFxurMzyfY4rLW807Bfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "13789365688-1crb7r9n1sn2atnil18419s0lsh26isp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/maps_nav_btn"
+        android:icon="@drawable/ic_baseline_map_24"
+        app:showAsAction="ifRoom"
+        android:title="Map" />
+    <item
+        android:id="@+id/parks_nav_btn"
+        android:icon="@drawable/ic_baseline_nature_people_24"
+        app:showAsAction="ifRoom"
+        android:title="Parks" />
+    <item
+        android:id="@+id/fav_nav_btn"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="To-Visit" />
+
+<!--    need to add a other item for profile-->
+    <item
+        android:id="@+id/setting_nav_btn"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="setting" />
+</menu>
