@@ -38,10 +38,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        name = name.findViewById(R.id.name);
-        email = email.findViewById(R.id.email);
-        signOutBtn = signOutBtn.findViewById(R.id.signOutBtn);
-
+        
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
