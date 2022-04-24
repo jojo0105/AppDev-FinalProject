@@ -65,6 +65,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textName">
 
+            <RelativeLayout
+                android:layout_width="250dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@color/white"
+                android:padding="15dp"
+                >
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="5dp"
+                    android:id="@+id/ic_profile"
+                    android:background="@drawable/ic_profile"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView_show_full_name"
+                    android:layout_alignStart="@+id/ic_profile"
+                    android:hint="Loading..."
+                    />
+
+
+
+            </RelativeLayout>
+
 
         </LinearLayout>
 
