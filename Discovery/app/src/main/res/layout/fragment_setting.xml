@@ -11,8 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="308dp"
-        android:layout_height="563dp"
+        android:layout_width="311dp"
+        android:layout_height="591dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="32dp"
@@ -66,25 +66,65 @@
             app:layout_constraintTop_toBottomOf="@+id/textName">
 
             <RelativeLayout
-                android:layout_width="250dp"
-                android:layout_height="30dp"
+                android:layout_width="249dp"
+                android:layout_height="315dp"
                 android:layout_margin="5dp"
                 android:background="@color/white"
-                android:padding="15dp"
-                >
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="5dp"
-                    android:id="@+id/ic_profile"
-                    android:background="@drawable/ic_profile"/>
-                <TextView
+                android:padding="15dp">
+
+
+                <EditText
+                    android:id="@+id/editTextFirstName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView_show_full_name"
-                    android:layout_alignStart="@+id/ic_profile"
-                    android:hint="Loading..."
-                    />
+                    android:ems="10"
+                    android:hint="First name"
+                    android:inputType="textPersonName"
+                    android:text="" />
 
+                <EditText
+                    android:id="@+id/editTextLastName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/editTextFirstName"
+                    android:layout_marginTop="6dp"
+                    android:ems="10"
+                    android:hint="Last name"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/editEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/editTextLastName"
+                    android:layout_marginTop="6dp"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/editPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/editEmail"
+                    android:layout_marginTop="6dp"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/editRePassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/editPassword"
+                    android:layout_marginTop="6dp"
+                    android:ems="10"
+                    android:hint="Re-password"
+                    android:inputType="textPersonName"
+                    android:text="" />
 
 
             </RelativeLayout>
