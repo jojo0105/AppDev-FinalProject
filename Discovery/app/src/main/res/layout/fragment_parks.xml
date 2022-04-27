@@ -30,7 +30,8 @@
         android:padding="8dp"
         android:text="List of Parks"
         android:textAlignment="center"
-        android:textSize="60sp"
+        android:textSize="40sp"
+        android:textColor="@android:color/holo_blue_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
