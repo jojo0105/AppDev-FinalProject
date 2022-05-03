@@ -9,9 +9,11 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -53,8 +55,9 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
 
 
+
     private GoogleMap mMap;
-    private ParkViewModel parkViewModel;
+    public static ParkViewModel parkViewModel;
     private List<Park> parkList;
     private CardView cardView;
     private EditText stateCodeInput;
@@ -81,14 +84,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps_actitviy);
+        this.overridePendingTransition(0, 0);
 
-        parkViewModel = new ViewModelProvider(this)
-                .get(ParkViewModel.class);
+        parkViewModel = ParkViewModel.getInstance(this);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentUserId = Session.getInstance().getUserId();
         authStateListener = (FirebaseAuth firebaseAuth) -> {user = firebaseAuth.getCurrentUser();};
-
 
 
 
@@ -102,39 +105,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         stateCodeInput = findViewById(R.id.floating_state_value_et);
         searchBtn = findViewById(R.id.floating_search_button);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-            int id = item.getItemId();
-
-            if(id == R.id.maps_nav_btn){
-                if (cardView.getVisibility() == View.INVISIBLE ||
-                        cardView.getVisibility() == View.GONE) {
-                    cardView.setVisibility(View.VISIBLE);
-                }
-                parkList.clear();
-                mMap.clear();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.map, mapFragment)
-                        .commit();
-               mapFragment.getMapAsync(this);
-                 return true;
-            }else if (id == R.id.parks_nav_btn){
-                selectedFragment = ParksFragment.newInstance();
-                cardView.setVisibility(View.GONE);
-            }else if (id == R.id.fav_nav_btn){
-                selectedFragment = FavoritesFragment.newInstance();
-                cardView.setVisibility(View.GONE);
-            }else if (id == R.id.setting_nav_btn){
-                selectedFragment = SettingFragment.newInstance();
-                cardView.setVisibility(View.GONE);
-            }
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.map, selectedFragment)
-                    .commit();
-            return true;
-        });
-
         searchBtn.setOnClickListener(view -> {
             parkList.clear();
             Util.hideSoftKeyboard(view);
@@ -147,8 +117,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            Util.MenuClick(item, getApplicationContext());
 
+//            if(id == R.id.maps_nav_btn){
+//                if (cardView.getVisibility() == View.INVISIBLE ||
+//                        cardView.getVisibility() == View.GONE) {
+//                    cardView.setVisibility(View.VISIBLE);
+//                }
+//                parkList.clear();
+//                mMap.clear();
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.map, mapFragment)
+//                        .commit();
+//               mapFragment.getMapAsync(this);
+//                 return true;
+//            }else if (id == R.id.parks_nav_btn){
+//                cardView.setVisibility(View.GONE);
+//                Intent intent = new Intent(getApplicationContext(), ParksListActivity.class);
+//                startActivity(intent);
+//
+//               // selectedFragment = ParksFragment.newInstance();
+//            }else if (id == R.id.fav_nav_btn){
+//                selectedFragment = FavoritesFragment.newInstance();
+//                cardView.setVisibility(View.GONE);
+//            }else if (id == R.id.setting_nav_btn){
+//                selectedFragment = SettingFragment.newInstance();
+//                cardView.setVisibility(View.GONE);
+//            }
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.map, selectedFragment)
+//                    .commit();
+            return true;
+        });
     }
+
 
     /**
      * Manipulates the map once available.
@@ -191,6 +195,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("onMapReady:", park.getFullName());
             }
             parkViewModel.setSelectedParks(parkList);
+            Log.d("onMapReady:",parkViewModel.getParks().getValue() + "");
+
         },code);
     }
 

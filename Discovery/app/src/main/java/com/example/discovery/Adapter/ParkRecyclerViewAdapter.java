@@ -40,10 +40,6 @@ import java.util.List;
 public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerViewAdapter.ViewHolder> {
     private final List<Park> parkList;
     private final OnParkClickListener parkClickListener;
-    private FavoriteDao favoriteDao;
-    private  static CollectionReference favModels = DB.selectCollection("favorites");
-
-
 
 
     public ParkRecyclerViewAdapter(List<Park> parkList, OnParkClickListener onParkClickListener)  {
@@ -69,14 +65,12 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
         holder.parkState.setText(park.getStates());
 
         FavoriteDao.readAllFav(allFav -> {
-            for(String favParkID : allFav){
-                if(favParkID.equals(park.getId())){
+            for(Park favPark : allFav){
+                if(favPark.getId().equals(park.getId())){
                     holder.fav.setChecked(true);
                 }
-
             }
         });
-
 
 
         holder.fav.setOnClickListener(view -> {

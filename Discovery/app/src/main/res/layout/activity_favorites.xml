@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/favorites_fragment"
+    android:id="@+id/favorites_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.FavoritesFragment">
@@ -10,28 +10,39 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fav_recycler"
-        android:layout_width="402dp"
-        android:layout_height="653dp"
+        android:layout_width="395dp"
+        android:layout_height="551dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Fav_textView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.827" />
 
     <TextView
         android:id="@+id/Fav_textView"
-        android:layout_width="355dp"
-        android:layout_height="94dp"
+        android:layout_width="367dp"
+        android:layout_height="77dp"
         android:padding="8dp"
         android:text="Favorites"
         android:textAlignment="center"
-        android:textSize="40sp"
         android:textColor="@android:color/holo_blue_dark"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/fav_recycler"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.477" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="407dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

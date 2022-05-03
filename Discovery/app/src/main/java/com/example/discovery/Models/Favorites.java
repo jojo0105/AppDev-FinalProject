@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Favorites {
     private String userId;
-    private String parkId;
+    private Park park;
     private List<String> getAll;
 
     public Favorites() {
@@ -26,11 +26,11 @@ public class Favorites {
         this.userId = userId;
     }
 
-    public String getParkId() {
-        return parkId;
+    public Park getPark() {
+        return park;
     }
 
-    public void setParkId(String parkId) {
-        this.parkId = parkId;
+    public void setPark(Park park) {
+        this.park = park;
     }
 }

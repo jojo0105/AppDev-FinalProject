@@ -3,6 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_favorites.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_maps_actitviy.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_parks_list.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_setting.xml" value="0.24814814814814815" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/fragment_details.xml" value="0.1" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/fragment_favorites.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/fragment_parks.xml" value="0.27314814814814814" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/fragment_setting.xml" value="0.24814814814814815" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/Project/Project V2/Discovery/app/src/main/res/drawable/toggle_selector.xml" value="0.1" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/Project/Project V2/Discovery/app/src/main/res/layout/activity_login.xml" value="0.1990632318501171" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/Project/Project V2/Discovery/app/src/main/res/layout/fragment_details.xml" value="0.23333333333333334" />
@@ -44,6 +53,9 @@
         <entry key="app/src/main/res/layout/view_pager_row.xml" value="0.2563405797101449" />
       </map>
     </option>
+  </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_favorites.xml" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

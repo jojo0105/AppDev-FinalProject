@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ public class DetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewPager = view.findViewById(R.id.detail_viewPager);
-        parkViewModel = new ViewModelProvider(requireActivity()).get(ParkViewModel.class);
+        parkViewModel = ParkViewModel.getInstance(requireActivity());
         
         TextView parkName = view.findViewById(R.id.detail_parkName_textView);
         TextView parkDesignation = view.findViewById(R.id.detail_park_designation_textView);
@@ -58,14 +59,11 @@ public class DetailsFragment extends Fragment {
         TextView directions = view.findViewById(R.id.details_directions);
         ToggleButton fav = view.findViewById(R.id.fav_btn);
 
-
-
-
-
-
         parkViewModel.getSelectedPark().observe(getViewLifecycleOwner(), new Observer<Park>() {
             @Override
             public void onChanged(Park park) {
+
+                Log.d("detailFragment", "onclick:" + park.getFullName());
                 parkName.setText(park.getName());
                 parkDesignation.setText(park.getDesignation());
 
@@ -116,8 +114,8 @@ public class DetailsFragment extends Fragment {
                 }
 
                 FavoriteDao.readAllFav(allFav -> {
-                    for(String favParkID : allFav){
-                        if(favParkID.equals(park.getId())){
+                    for(Park favPark : allFav){
+                        if(favPark.getId().equals(park.getId())){
                             fav.setChecked(true);
                         }
 

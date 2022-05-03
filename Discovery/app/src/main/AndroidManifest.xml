@@ -14,17 +14,20 @@
         android:theme="@style/Theme.Discovery"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Activity.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.FavoritesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.ParksListActivity"
+            android:exported="true" />
+        <activity
             android:name=".GithubAuthActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.SplashActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -33,15 +36,22 @@
         <activity
             android:name=".Activity.MapsActivity"
             android:exported="true"
-            android:label="@string/title_activity_maps_actitviy"></activity>
+            android:label="@string/title_activity_maps_actitviy">
+
+        </activity>
         <activity
             android:name=".Activity.LoginActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.SignUpActivity"
             android:exported="true"
-            android:parentActivityName=".Activity.LoginActivity"></activity>
+            android:parentActivityName=".Activity.LoginActivity" />
     </application>
 
 </manifest>

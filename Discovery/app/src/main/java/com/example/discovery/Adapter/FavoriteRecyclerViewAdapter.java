@@ -19,11 +19,13 @@ import java.util.List;
 
 public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRecyclerViewAdapter.ViewHolder> {
     private final List<Park> parkList;
+    private final OnParkClickListener parkClickListener;
 
 
 
-    public FavoriteRecyclerViewAdapter(List<Park> parkList) {
+    public FavoriteRecyclerViewAdapter(List<Park> parkList, OnParkClickListener parkClickListener) {
         this.parkList = parkList;
+        this.parkClickListener = parkClickListener;
     }
 
     @NonNull
@@ -69,13 +71,13 @@ public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRe
         return parkList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView parkImage;
         public TextView parkName;
         public TextView parkType;
         public TextView parkState;
         public ToggleButton fav;
-      //  OnParkClickListener onParkClickListener;
+        OnParkClickListener onParkClickListener;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -86,8 +88,14 @@ public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRe
             parkState = itemView.findViewById(R.id.row_park_state_textView);
             fav = itemView.findViewById(R.id.fav_btn);
 
-          //  this.onParkClickListener = parkClickListener;
-          //  itemView.setOnClickListener(this);
+            this.onParkClickListener = parkClickListener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Park currPark = parkList.get(getAdapterPosition());
+            onParkClickListener.onParkClicked(currPark);
         }
     }
 

@@ -34,7 +34,7 @@ public class FavoriteDao {
 
     public static void addToFavorite(Park park) {
         Favorites favorite = new Favorites();
-        favorite.setParkId(park.getId());
+        favorite.setPark(park);
         favorite.setUserId(Session.getInstance().getUserId());
 
         favModels.add(favorite).addOnSuccessListener(documentReference -> Log.d("Fav_Click", "added"))
@@ -44,92 +44,45 @@ public class FavoriteDao {
 
 
     public static void removeFromFavorite(Park park) {
-       favModels.whereEqualTo("parkId", park.getId()).addSnapshotListener(new EventListener<QuerySnapshot>() {
-           @Override
-           public void onEvent(@Nullable QuerySnapshot values, @Nullable FirebaseFirestoreException error) {
-               if(error != null){
-               }
+        favModels.whereEqualTo("userId", Session.getInstance().getUserId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot value : queryDocumentSnapshots){
+                    Park mpark = value.get("park", Park.class);
+                    if(park.getId().equalsIgnoreCase(mpark.getId())){
+                        favModels.document(value.getId()).delete();
+                    }
+                }
+            }
+        });
 
-               assert values != null;
-               for(QueryDocumentSnapshot value : values){
-                   if(value.getString(Util.KEY_USERID).equals(Session.getInstance().getUserId()))
-                       favModels.document(value.getId()).delete();
-               }
-           }
-       });
+
+
+//       favModels.document().collection("park").whereEqualTo("id", park.getId()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+//           @Override
+//           public void onEvent(@Nullable QuerySnapshot values, @Nullable FirebaseFirestoreException error) {
+//               assert values != null;
+//               for(QueryDocumentSnapshot value : values){
+//                   if(value.getString(Util.KEY_USERID).equals(Session.getInstance().getUserId()))
+//                       favModels.document(value.getId()).delete();
+//               }
+//           }
+//       });
+
     }
 
     public static void readAllFav(FirebaseCallBack callBack){
-        ArrayList<String> favParkList = new ArrayList<>();
-
-
+        ArrayList<Park> favParkList = new ArrayList<>();
 
         favModels.whereEqualTo("userId", Session.getInstance().getUserId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for(QueryDocumentSnapshot value : queryDocumentSnapshots){
-                    String data = value.getString("parkId");
-                    favParkList.add(data);
+                    favParkList.add(value.get("park", Park.class));
                 }
                 callBack.onResponse(favParkList);
             }
         });
 
     }
-
-
-
-
-  //  public static List<String> getAllFav (String userId){
-
-
-
-//        favModels.whereEqualTo("userId", Session.getInstance().getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for(QueryDocumentSnapshot value : task.getResult()){
-//                        String data = value.getString("parkId");
-//                        favParkList.add(data);
-//                    }
-//                }
-//
-//
-//            }
-//        });
-
-
-
-//        favModels.whereEqualTo("userId", userId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @Override
-//            public void onSuccess(QuerySnapshot values) {
-//                for(QueryDocumentSnapshot value : values) {
-//                    String data = value.getString("parkId");
-//                    favParkList.add(data);
-//                }
-//                Log.d("Fav_Click_Fav", favParkList.size() + "");
-//            }
-//        });
-
-
-//        })new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot values, @Nullable FirebaseFirestoreException error) {
-//                if(error != null){
-//                }
-//                assert values != null;
-//                for(QueryDocumentSnapshot value : values){
-//
-//                    Log.d("Fav_Click_Dao", value.getString("parkId"));
-//                    String data = value.getString("parkId");
-//                    favParkList.add(data);
-//                }
-//
-//                Log.d("Fav_Click_arraysList", favParkList.size() + "");
-//            }
-        //});
-
-    //    Log.d("Fav_Click_arraysList", favParkList.size() + "");
-   //     return favParkList;
-   // }
 }
