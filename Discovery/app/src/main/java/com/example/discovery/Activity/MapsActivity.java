@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -44,6 +45,7 @@ import com.example.discovery.databinding.ActivityMapsActitviyBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -233,9 +235,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //TO-DO: insert the favorite into the Favorite table fav_Table [fav_id, user_id, park_id]
 //        Toast.makeText(this,"Added to Favorites",Toast.LENGTH_SHORT).show();
 //    }
-    public void onAddedScheduleClick(View view) {
-        Toast.makeText(this,"Added to Schedule",Toast.LENGTH_SHORT).show();
-    }
+
 
 
     @Override

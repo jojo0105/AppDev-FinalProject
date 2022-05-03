@@ -19,6 +19,8 @@ public class DB {
                 break;
             case "favorites":
                 collectionReference = db.collection("Favorites");
+            case "visit":
+                collectionReference = db.collection("Visit");
 
         }
         return collectionReference;

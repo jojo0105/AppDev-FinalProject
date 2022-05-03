@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/scheduleContainer"
+        android:background="@drawable/schedule_popup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:paddingStart="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp">
+
+
+        <ImageView
+            android:id="@+id/popUp_row_park_imageView"
+            android:layout_width="138dp"
+            android:layout_height="118dp"
+            android:layout_marginStart="6dp"
+            android:background="@color/white"
+            android:padding="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/banner_intro" />
+
+        <TextView
+            android:id="@+id/popUp_row_parkName_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textColorHint="#000000"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/popUp_row_park_imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/popUp_row_park_type_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textColor="#474141"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/popUp_row_park_imageView"
+            app:layout_constraintTop_toBottomOf="@+id/popUp_row_parkName_textView" />
+
+
+        <TextView
+            android:id="@+id/popUp_row_park_state_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="30dp"
+            android:text="TextView"
+            android:textColor="#514949"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/popUp_row_park_imageView"
+            app:layout_constraintTop_toBottomOf="@+id/popUp_row_park_type_textView"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+
+            android:layout_width="411dp"
+            android:layout_height="490dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_calen"
+            android:orientation="vertical"
+            android:padding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popUp_row_park_imageView">
+
+
+            <CalendarView
+                android:id="@+id/calen_view"
+                android:layout_width="322dp"
+                android:layout_height="291dp"
+                android:layout_gravity="center|center_horizontal"
+                android:background="@color/white"
+                android:firstDayOfWeek="2"
+                android:foregroundGravity="center" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="327dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="Notes: "
+                android:textStyle="bold|italic" />
+
+            <EditText
+                android:id="@+id/notes_editText"
+                android:layout_width="322dp"
+                android:layout_height="67dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/scheduleBtn"
+                android:layout_width="351dp"
+                android:layout_height="38dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#00C2A5"
+
+                android:backgroundTintMode="screen"
+                android:shadowColor="#A84C4C"
+                android:text="Add!"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:textColor="#514949"
+                android:textColorHighlight="#813030"
+                android:textSize="17dp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="@+id/login_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.852"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintVertical_bias="0.0"
+                app:rippleColor="#24AF39"
+                app:strokeColor="#C32828"
+                tools:ignore="DuplicateSpeakableTextCheck" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
