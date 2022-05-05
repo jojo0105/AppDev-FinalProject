@@ -6,15 +6,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
 import com.example.discovery.Activity.FavoritesActivity;
-
 import com.example.discovery.Activity.MapsActivity;
 import com.example.discovery.Activity.ParksListActivity;
 import com.example.discovery.Activity.SettingActivity;
-import com.example.discovery.Activity.SettingFragment;
+import com.example.discovery.Activity.VisitActivity;
 import com.example.discovery.R;
 
 public class Util {
@@ -23,6 +19,8 @@ public class Util {
     public static String KEY_PWD = "password";
     public static String KEY_USERID = "userId";
     public static String KEY_EMAIL = "email";
+
+    public static String email = "HangDanich@hotmail.com";
 
 
 
@@ -59,6 +57,11 @@ public class Util {
         }else if (id == R.id.setting_nav_btn){
             item.setChecked(true);
             Intent intent = new Intent(context, SettingActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }else if (id == R.id.visit_nav_btn){
+            item.setChecked(true);
+            Intent intent = new Intent(context, VisitActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }

@@ -6,40 +6,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.discovery.Data.FavoriteDao;
-import com.example.discovery.Data.FirebaseCallBack;
+import com.example.discovery.Activity.DetailsFragment;
 import com.example.discovery.Models.Favorites;
-import com.example.discovery.Models.Images;
 import com.example.discovery.Models.Park;
-import com.example.discovery.Models.ParkViewModel;
 import com.example.discovery.R;
-import com.example.discovery.Util.DB;
-import com.example.discovery.Util.Session;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
+import com.example.discovery.ViewModels.FavoriteViewModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerViewAdapter.ViewHolder> {
     private final List<Park> parkList;
     private final OnParkClickListener parkClickListener;
+    public ViewPagerAdapter viewPagerAdapter;
 
 
     public ParkRecyclerViewAdapter(List<Park> parkList, OnParkClickListener onParkClickListener)  {
@@ -62,9 +49,9 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
 
         holder.parkName.setText(park.getName());
         holder.parkType.setText(park.getDesignation());
-        holder.parkState.setText(park.getStates());
+//        holder.parkState.setText(park.getStates());
 
-        FavoriteDao.readAllFav(allFav -> {
+        FavoriteViewModel.readAllFav(allFav -> {
             for(Park favPark : allFav){
                 if(favPark.getId().equals(park.getId())){
                     holder.fav.setChecked(true);
@@ -72,24 +59,47 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
             }
         });
 
-
         holder.fav.setOnClickListener(view -> {
             if(holder.fav.isChecked()){
-                FavoriteDao.addToFavorite(park);
+                FavoriteViewModel.addToFavorite(park);
             } else {
-                FavoriteDao.removeFromFavorite(park);
+                FavoriteViewModel.removeFromFavorite(park).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot value : snapshot.getChildren()){
+                            Favorites favorite = value.getValue(Favorites.class);
+                            if(park.getId().equalsIgnoreCase(favorite.getPark().getId())){
+                                value.getRef().removeValue();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("DetailsFragments", "onCancelled", error.toException());
+                    }
+                });
             }
             
         });
-        if (park.getImages().size() > 0) {
-            Picasso.get()
-                    .load(park.getImages().get(0).getUrl())
-                    .placeholder(android.R.drawable.stat_sys_download)
-                    .error(android.R.drawable.stat_notify_error)
-                    .resize(100, 100)
-                    .centerCrop()
-                    .into(holder.parkImage);
-        }
+
+        holder.schedule.setOnClickListener(view -> {
+            if(holder.schedule.isChecked()){
+                DetailsFragment.onAddedScheduleClick(holder.itemView, holder.itemView.getContext(),park);
+            }
+        });
+
+        viewPagerAdapter = new ViewPagerAdapter(park.getImages());
+        holder.viewPager.setAdapter(viewPagerAdapter);
+
+//        if (park.getImages().size() > 0) {
+//            Picasso.get()
+//                    .load(park.getImages().get(0).getUrl())
+//                    .placeholder(android.R.drawable.stat_sys_download)
+//                    .error(android.R.drawable.stat_notify_error)
+//                    .fit()
+//                    .centerCrop()
+//                    .into(holder.parkImage);
+//        }
     }
 
 
@@ -103,18 +113,20 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
         public ImageView parkImage;
         public TextView parkName;
         public TextView parkType;
-        public TextView parkState;
+        ViewPager2 viewPager;
         public ToggleButton fav;
+        public ToggleButton schedule;
         OnParkClickListener onParkClickListener;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             parkImage = itemView.findViewById(R.id.row_park_imageView);
-            parkName = itemView.findViewById(R.id.row_parkName_textView);
-            parkType = itemView.findViewById(R.id.row_park_type_textView);
-            parkState = itemView.findViewById(R.id.row_park_state_textView);
+            parkName = itemView.findViewById(R.id.visite_parkName_textView);
+            parkType = itemView.findViewById(R.id.schedule_date_textView);
+            viewPager = itemView.findViewById(R.id.detail_viewPager);
             fav = itemView.findViewById(R.id.fav_btn);
+            schedule = itemView.findViewById(R.id.schedule_btn);
 
             this.onParkClickListener = parkClickListener;
             itemView.setOnClickListener(this);

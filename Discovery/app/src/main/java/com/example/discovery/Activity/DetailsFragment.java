@@ -2,39 +2,49 @@ package com.example.discovery.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.discovery.Adapter.ReviewRecycleerViewAdapter;
 import com.example.discovery.Adapter.ViewPagerAdapter;
-import com.example.discovery.Data.FavoriteDao;
-import com.example.discovery.Data.VisiteDao;
+import com.example.discovery.Models.Favorites;
 import com.example.discovery.Models.Park;
-import com.example.discovery.Models.ParkViewModel;
+import com.example.discovery.Models.Review;
 import com.example.discovery.Models.Visit;
 import com.example.discovery.R;
 import com.example.discovery.Util.Session;
+import com.example.discovery.ViewModels.FavoriteViewModel;
+import com.example.discovery.ViewModels.ParkViewModel;
+import com.example.discovery.ViewModels.ReviewViewModel;
+import com.example.discovery.ViewModels.VisiteViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DetailsFragment extends Fragment {
@@ -72,6 +82,7 @@ public class DetailsFragment extends Fragment {
         TextView directions = view.findViewById(R.id.details_directions);
         ToggleButton fav = view.findViewById(R.id.fav_btn);
         ToggleButton add = view.findViewById(R.id.detail_scheduleVisit_btn);
+        ToggleButton review = view.findViewById(R.id.add_review_btn);
 
         parkViewModel.getSelectedPark().observe(getViewLifecycleOwner(), new Observer<Park>() {
             @Override
@@ -127,7 +138,10 @@ public class DetailsFragment extends Fragment {
                     directions.setText("Directions not available");
                 }
 
-                FavoriteDao.readAllFav(allFav -> {
+
+
+
+                FavoriteViewModel.readAllFav(allFav -> {
                     for(Park favPark : allFav){
                         if(favPark.getId().equals(park.getId())){
                             fav.setChecked(true);
@@ -137,9 +151,23 @@ public class DetailsFragment extends Fragment {
 
                 fav.setOnClickListener(view1 -> {
                     if(fav.isChecked()){
-                        FavoriteDao.addToFavorite(park);
+                        FavoriteViewModel.addToFavorite(park);
                     } else {
-                        FavoriteDao.removeFromFavorite(park);
+                        FavoriteViewModel.removeFromFavorite(park).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot value : snapshot.getChildren()){
+                                    Favorites favorite = value.getValue(Favorites.class);
+                                    if(park.getId().equalsIgnoreCase(favorite.getPark().getId())){
+                                       value.getRef().removeValue();
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.e("DetailsFragments", "onCancelled", error.toException());
+                            }
+                        });
                     }
                 });
 
@@ -149,6 +177,15 @@ public class DetailsFragment extends Fragment {
                         onAddedScheduleClick(view, getContext(), park);
                     }
                 });
+
+                review.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        reviewClick(view, getContext(), park);
+                    }
+                });
+
+
 
 
             }
@@ -185,22 +222,91 @@ public class DetailsFragment extends Fragment {
                 .centerCrop()
                 .into(imageView);
 
+        Visit visit = new Visit();
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView1, int i, int i1, int i2) {
+                String date =  i2 + "/" + (i1 + 1) + "/" + i;
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    visit.setDate(formatter.parse(date));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         bottonSheetView.findViewById(R.id.scheduleBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Visit visit = new Visit();
+
                 visit.setPark(park);
                 visit.setUserId(Session.getInstance().getUserId());
                 visit.setNote(notes.getText().toString().trim());
-                SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
-                visit.setDate(formatter.format(calendarView.getDate()));
-
-                VisiteDao.addToViste(visit);
+                visit.setStatus(false);
+//                visit.setTimestamp(new Timestamp(System.currentTimeMillis()));
+                VisiteViewModel.addToViste(visit);
+                Toast.makeText(context, "Add to Visit!", Toast.LENGTH_SHORT);
                 bottomSheetDialog.dismiss();
             }
         });
         bottomSheetDialog.setContentView(bottonSheetView);
         bottomSheetDialog.show();
+    }
+
+    public static void reviewClick(View view, Context context, Park park) {
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialogTheme);
+        View bottonSheetView = LayoutInflater.from(context)
+                .inflate(R.layout.review_layout, view.findViewById(R.id.commentContainer));
+
+
+        Review review = new Review();
+
+
+        EditText comment = bottonSheetView.findViewById(R.id.review_comment_editText);
+        Button btn = bottonSheetView.findViewById(R.id.addComment_btn);
+        RecyclerView recyclerView = bottonSheetView.findViewById(R.id.review_recyclerView);
+
+
+        btn.setOnClickListener(view1 -> {
+            review.setUserName(Session.getInstance().getUserName());
+            review.setComment(comment.getText().toString().trim());
+            review.setParkID(park.getId());
+            ReviewViewModel.addReview(review).addOnSuccessListener(unused -> Log.d("review", "added"));
+            comment.setText("");
+        });
+
+        ReviewViewModel.retrieveReview(park.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Review> reviews = new ArrayList<>();
+                reviews.clear();
+
+
+                for (DataSnapshot value : snapshot.getChildren()){
+                    Review review = value.getValue(Review.class);
+                    reviews.add(review);
+                }
+                ReviewRecycleerViewAdapter reviewRecycleerViewAdapter = new ReviewRecycleerViewAdapter(reviews);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setAdapter(reviewRecycleerViewAdapter);
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Review", "cancelled");
+            }
+        });
+
+        bottomSheetDialog.setContentView(bottonSheetView);
+        bottomSheetDialog.show();
+
+    }
+
+    public void sendEmail(){
+
     }
 }

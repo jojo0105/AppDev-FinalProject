@@ -1,55 +1,36 @@
 package com.example.discovery.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
-import android.widget.ToggleButton;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.discovery.Adapter.CustomInfoWindow;
-import com.example.discovery.Data.FavoriteDao;
 import com.example.discovery.Data.ParkRepository;
-import com.example.discovery.Models.Favorites;
 import com.example.discovery.Models.Park;
-import com.example.discovery.Models.ParkViewModel;
 import com.example.discovery.R;
 import com.example.discovery.Util.AsyncResponse;
 import com.example.discovery.Util.DB;
 import com.example.discovery.Util.Session;
 import com.example.discovery.Util.Util;
+import com.example.discovery.ViewModels.ParkViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.discovery.databinding.ActivityMapsActitviyBinding;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseUser user;
-    private CollectionReference userModels = DB.selectCollection("users");
+    private CollectionReference userModels = DB.selectCollection();
 
 
 

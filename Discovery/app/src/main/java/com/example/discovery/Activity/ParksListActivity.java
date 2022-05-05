@@ -1,24 +1,20 @@
 package com.example.discovery.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.discovery.Adapter.OnParkClickListener;
 import com.example.discovery.Adapter.ParkRecyclerViewAdapter;
 import com.example.discovery.Models.Park;
-import com.example.discovery.Models.ParkViewModel;
 import com.example.discovery.R;
 import com.example.discovery.Util.Util;
+import com.example.discovery.ViewModels.ParkViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ParksListActivity extends AppCompatActivity implements OnParkClickListener{

@@ -18,7 +18,11 @@
         android:icon="@drawable/ic_baseline_favorite_24"
         android:title="To-Visit" />
 
-<!--    need to add a other item for profile-->
+    <item
+        android:id="@+id/visit_nav_btn"
+        android:icon="@drawable/ic_baseline_done_all_24"
+        android:title="Visit" />
+
     <item
         android:id="@+id/setting_nav_btn"
         android:icon="@drawable/ic_baseline_settings_24"

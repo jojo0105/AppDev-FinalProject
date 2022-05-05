@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Discovery"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Activity.VisitActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.SettingActivity"
             android:exported="false" />
         <activity
@@ -36,9 +39,7 @@
         <activity
             android:name=".Activity.MapsActivity"
             android:exported="true"
-            android:label="@string/title_activity_maps_actitviy">
-
-        </activity>
+            android:label="@string/title_activity_maps_actitviy"></activity>
         <activity
             android:name=".Activity.LoginActivity"
             android:exported="true">

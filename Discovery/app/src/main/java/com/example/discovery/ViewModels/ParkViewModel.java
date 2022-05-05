@@ -1,14 +1,14 @@
-package com.example.discovery.Models;
-
-import android.app.Activity;
-
-import java.util.List;
+package com.example.discovery.ViewModels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
+
+import com.example.discovery.Models.Park;
+
+import java.util.List;
 
 public class ParkViewModel extends ViewModel {
     private static ParkViewModel instance;

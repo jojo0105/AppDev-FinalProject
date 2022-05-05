@@ -1,28 +1,34 @@
 package com.example.discovery.Util;
 
-import android.widget.Switch;
-
+import com.example.discovery.Models.Favorites;
+import com.example.discovery.Models.Review;
+import com.example.discovery.Models.Visit;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Locale;
-
 public class DB {
-    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static FirebaseDatabase db = FirebaseDatabase.getInstance();;
+    private static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-    public static CollectionReference selectCollection(String types){
-        CollectionReference collectionReference = null;
-
+    public static DatabaseReference selectCollection(String types){
+        DatabaseReference databaseReference = null;
         switch (types.toLowerCase()){
-            case "users":
-                collectionReference = db.collection("Users");
-                break;
             case "favorites":
-                collectionReference = db.collection("Favorites");
+                databaseReference = db.getReference(Favorites.class.getSimpleName());
+                break;
             case "visit":
-                collectionReference = db.collection("Visit");
-
+                databaseReference = db.getReference(Visit.class.getSimpleName());
+                break;
+            case "review":
+                databaseReference = db.getReference(Review.class.getSimpleName());
+                break;
         }
-        return collectionReference;
+        return databaseReference;
+    }
+
+    public static CollectionReference selectCollection(){
+        return firestore.collection("users");
     }
 }

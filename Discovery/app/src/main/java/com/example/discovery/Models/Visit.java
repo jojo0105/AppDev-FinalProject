@@ -1,13 +1,17 @@
 package com.example.discovery.Models;
 
-import java.sql.Timestamp;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Visit {
+    private String id;
     private Park park;
-    private String date;
+    private Date date;
     private String userId;
     private String note;
+    private Boolean status;
+//    private Timestamp timestamp;
 
     public Visit() {
     }
@@ -20,11 +24,11 @@ public class Visit {
         this.park = park;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -43,4 +47,35 @@ public class Visit {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+//    public Timestamp getTimestamp() {
+//        return timestamp;
+//    }
+//
+//    public void setTimestamp(Timestamp timestamp) {
+//        this.timestamp = timestamp;
+//    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDateString(){
+        SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
+        return formatter.format(date);
+    }
+
+
 }
