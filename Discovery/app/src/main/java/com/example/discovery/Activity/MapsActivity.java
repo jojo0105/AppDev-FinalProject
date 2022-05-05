@@ -36,9 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
-
-
-
     private GoogleMap mMap;
     public static ParkViewModel parkViewModel;
     private List<Park> parkList;

@@ -31,6 +31,7 @@ import com.example.discovery.Models.Park;
 import com.example.discovery.Models.Review;
 import com.example.discovery.Models.User;
 import com.example.discovery.Models.Visit;
+import com.example.discovery.Notification;
 import com.example.discovery.R;
 import com.example.discovery.Util.Session;
 import com.example.discovery.Util.Util;
@@ -274,14 +275,12 @@ public class DetailsFragment extends Fragment {
             public void onClick(View view) {
 
                 visit.setPark(park);
-
                 visit.setNote(notes.getText().toString().trim());
                 visit.setStatus(false);
-
-
-
                 VisiteViewModel.addToViste(visit);
                 UserViewModel.getUser(user -> sendEmail(visit, user));
+                Notification notification = new Notification();
+                notification.getScheculeConfimaionNotif(context, visit);
                 Toast.makeText(context, "Add to Visit!", Toast.LENGTH_SHORT);
                 bottomSheetDialog.dismiss();
             }
@@ -305,7 +304,6 @@ public class DetailsFragment extends Fragment {
         EditText comment = bottonSheetView.findViewById(R.id.review_comment_editText);
         Button btn = bottonSheetView.findViewById(R.id.addComment_btn);
         RecyclerView recyclerView = bottonSheetView.findViewById(R.id.review_recyclerView);
-
 
 
 
