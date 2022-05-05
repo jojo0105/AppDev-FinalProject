@@ -1,5 +1,7 @@
 package com.example.discovery.Data;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.discovery.Models.Favorites;
@@ -50,6 +52,7 @@ public class FavoriteDao {
     }
 
     public  void readAllFav(FirebaseCallBackPark callBack){
+        Log.d("Session_Fav", "User_id: " + Session.getInstance().getUserId());
          List<Park> favParkList = new ArrayList<>();
          favModels.orderByChild("userId").equalTo(Session.getInstance().getUserId()).addValueEventListener(new ValueEventListener() {
             @Override

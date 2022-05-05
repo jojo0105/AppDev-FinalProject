@@ -3,6 +3,7 @@ package com.example.discovery.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -101,13 +102,17 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
         String email = loginEmail.getText().toString();
         String password = loginPassword.getText().toString();
+        Session session = Session.getInstance();
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             firebaseAuth.signInWithEmailAndPassword(email, password).onSuccessTask(task -> {
 //
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                assert user != null;
+
                 String currentUserId = user.getUid();
+
+
+
 
                 userModels.whereEqualTo(Util.KEY_USERID, currentUserId)
                         .addSnapshotListener((values, error) -> {
@@ -117,13 +122,16 @@ public class LoginActivity extends AppCompatActivity {
                             assert values != null;
                             if (!values.isEmpty()) {
                                 for (QueryDocumentSnapshot value : values) {
-                                    Session session = Session.getInstance();
                                     String name = value.getString(Util.KEY_FNAME) + " " + value.getString(Util.KEY_LNAME);
                                     session.setUserName(name);
-                                    session.setUserId(value.getString(Util.KEY_USERID));
+                                    session.setUserId(currentUserId);
+                                    session.setEmail(value.getString(Util.KEY_EMAIL));
+
                                 }
                             }
                         });
+                Log.d("Session", "User_name" + Session.getInstance().getUserName());
+                Log.d("Session", "User_id" + Session.getInstance().getUserId());
                 startActivity(intent);
                 return null;
             }).addOnFailureListener(e -> {

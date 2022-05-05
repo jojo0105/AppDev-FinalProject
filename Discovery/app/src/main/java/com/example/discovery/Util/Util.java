@@ -20,7 +20,8 @@ public class Util {
     public static String KEY_USERID = "userId";
     public static String KEY_EMAIL = "email";
 
-    public static String email = "HangDanich@hotmail.com";
+    public static String email = "info.discoveryproject@gmail.com";
+    public static String email_pwd = "oomzwjujkdsonqee";
 
 
 

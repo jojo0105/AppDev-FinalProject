@@ -1,11 +1,10 @@
 package com.example.discovery.Util;
 
-import android.app.Application;
-
 public class Session extends AppController{
 
     private String userId;
     private String userName;
+    private String email;
     private static Session instance;
 
     public static Session getInstance(){
@@ -14,8 +13,15 @@ public class Session extends AppController{
         return instance;
     }
 
-    public Session(){
+
+    public String getEmail() {
+        return email;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 
     public String getUserId() {
         return userId;

@@ -25,15 +25,19 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.discovery.Adapter.ReviewRecycleerViewAdapter;
 import com.example.discovery.Adapter.ViewPagerAdapter;
+import com.example.discovery.Data.FirebaseCallBackUser;
 import com.example.discovery.Models.Favorites;
 import com.example.discovery.Models.Park;
 import com.example.discovery.Models.Review;
+import com.example.discovery.Models.User;
 import com.example.discovery.Models.Visit;
 import com.example.discovery.R;
 import com.example.discovery.Util.Session;
+import com.example.discovery.Util.Util;
 import com.example.discovery.ViewModels.FavoriteViewModel;
 import com.example.discovery.ViewModels.ParkViewModel;
 import com.example.discovery.ViewModels.ReviewViewModel;
+import com.example.discovery.ViewModels.UserViewModel;
 import com.example.discovery.ViewModels.VisiteViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +49,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 
 public class DetailsFragment extends Fragment {
@@ -71,7 +84,7 @@ public class DetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewPager = view.findViewById(R.id.detail_viewPager);
         parkViewModel = ParkViewModel.getInstance(requireActivity());
-        
+
         TextView parkName = view.findViewById(R.id.detail_parkName_textView);
         TextView parkDesignation = view.findViewById(R.id.detail_park_designation_textView);
         TextView description = view.findViewById(R.id.details_description);
@@ -83,6 +96,7 @@ public class DetailsFragment extends Fragment {
         ToggleButton fav = view.findViewById(R.id.fav_btn);
         ToggleButton add = view.findViewById(R.id.detail_scheduleVisit_btn);
         ToggleButton review = view.findViewById(R.id.add_review_btn);
+        Log.d("Session_detailFragment", "User_id: " + Session.getInstance().getUserId());
 
         parkViewModel.getSelectedPark().observe(getViewLifecycleOwner(), new Observer<Park>() {
             @Override
@@ -92,7 +106,7 @@ public class DetailsFragment extends Fragment {
                 parkName.setText(park.getName());
                 parkDesignation.setText(park.getDesignation());
 
-                viewPagerAdapter = new ViewPagerAdapter(park.getImages());
+                viewPagerAdapter = new ViewPagerAdapter(park);
                 viewPager.setAdapter(viewPagerAdapter);
 
                 description.setText(park.getDescription());
@@ -159,7 +173,7 @@ public class DetailsFragment extends Fragment {
                                 for (DataSnapshot value : snapshot.getChildren()){
                                     Favorites favorite = value.getValue(Favorites.class);
                                     if(park.getId().equalsIgnoreCase(favorite.getPark().getId())){
-                                       value.getRef().removeValue();
+                                        value.getRef().removeValue();
                                     }
                                 }
                             }
@@ -200,6 +214,7 @@ public class DetailsFragment extends Fragment {
     }
 
     public static void onAddedScheduleClick(View view, Context context, Park park) {
+        Util.hideSoftKeyboard(view);
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialogTheme);
         View bottonSheetView = LayoutInflater.from(context)
                 .inflate(R.layout.schedule_layout, view.findViewById(R.id.scheduleContainer));
@@ -211,9 +226,9 @@ public class DetailsFragment extends Fragment {
         EditText notes = bottonSheetView.findViewById(R.id.notes_editText);
         CalendarView calendarView = bottonSheetView.findViewById(R.id.calen_view);
 
-       park_name.setText(park.getFullName());
-       state.setText(park.getStates());
-       type.setText(park.getDesignation());
+        park_name.setText(park.getFullName());
+        state.setText(park.getStates());
+        type.setText(park.getDesignation());
         Picasso.get()
                 .load(park.getImages().get(0).getUrl())
                 .placeholder(android.R.drawable.stat_sys_download)
@@ -221,6 +236,8 @@ public class DetailsFragment extends Fragment {
                 .resize(100, 100)
                 .centerCrop()
                 .into(imageView);
+
+
 
         Visit visit = new Visit();
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -236,21 +253,32 @@ public class DetailsFragment extends Fragment {
             }
         });
 
+        UserViewModel.getUser(new FirebaseCallBackUser() {
+            @Override
+            public void onUseResponse(User user) {
+                visit.setUserId(user.getUserId());
+            }
+        });
 
         bottonSheetView.findViewById(R.id.scheduleBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 visit.setPark(park);
-                visit.setUserId(Session.getInstance().getUserId());
+
                 visit.setNote(notes.getText().toString().trim());
                 visit.setStatus(false);
-//                visit.setTimestamp(new Timestamp(System.currentTimeMillis()));
+
+
+
                 VisiteViewModel.addToViste(visit);
+                UserViewModel.getUser(user -> sendEmail(visit, user));
                 Toast.makeText(context, "Add to Visit!", Toast.LENGTH_SHORT);
                 bottomSheetDialog.dismiss();
             }
         });
+        Log.d("user_id", "user" + visit.getUserId());
+
         bottomSheetDialog.setContentView(bottonSheetView);
         bottomSheetDialog.show();
     }
@@ -268,6 +296,8 @@ public class DetailsFragment extends Fragment {
         EditText comment = bottonSheetView.findViewById(R.id.review_comment_editText);
         Button btn = bottonSheetView.findViewById(R.id.addComment_btn);
         RecyclerView recyclerView = bottonSheetView.findViewById(R.id.review_recyclerView);
+
+
 
 
         btn.setOnClickListener(view1 -> {
@@ -306,7 +336,43 @@ public class DetailsFragment extends Fragment {
 
     }
 
-    public void sendEmail(){
+    public static void sendEmail(Visit visit, User user){
+        Log.d("SendEmail", user.getEmail());
+        String message = "Hey " +user.getFirstName() + " "+ user.getLastname() + ",\n\nYour visit has been arranged on the " + visit.getDateString()
+                + " at " + visit.getPark().getFullName() + ".\n\n Enjoy\n Discovery Team";
+        Properties properties = System.getProperties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "465");
 
+        javax.mail.Session session = javax.mail.Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(Util.email, Util.email_pwd);
+            }
+        });
+
+        MimeMessage mimeMessage = new MimeMessage(session);
+        try {
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+            mimeMessage.setSubject("Schedule Confirmation");
+            mimeMessage.setText(message);
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Transport.send(mimeMessage);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }

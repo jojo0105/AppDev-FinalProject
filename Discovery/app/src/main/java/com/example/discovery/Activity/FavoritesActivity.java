@@ -46,11 +46,13 @@ public class FavoritesActivity extends AppCompatActivity implements OnParkClickL
         parkViewModel = ParkViewModel.getInstance(this);
 
         FavoriteViewModel.readAllFav(allFav -> {
-            parkRecyclerViewAdapter = new ParkRecyclerViewAdapter(allFav,this );
+            parkRecyclerViewAdapter = new ParkRecyclerViewAdapter(allFav, this, this, this);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(parkRecyclerViewAdapter);
         });
+
+
     }
 
     @Override

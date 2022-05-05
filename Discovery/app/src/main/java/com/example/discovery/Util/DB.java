@@ -2,6 +2,7 @@ package com.example.discovery.Util;
 
 import com.example.discovery.Models.Favorites;
 import com.example.discovery.Models.Review;
+import com.example.discovery.Models.User;
 import com.example.discovery.Models.Visit;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,11 +25,14 @@ public class DB {
             case "review":
                 databaseReference = db.getReference(Review.class.getSimpleName());
                 break;
+            case "Users":
+                databaseReference = db.getReference(User.class.getSimpleName());
+                break;
         }
         return databaseReference;
     }
 
     public static CollectionReference selectCollection(){
-        return firestore.collection("users");
+        return firestore.collection("Users");
     }
 }

@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -17,22 +19,30 @@ import com.example.discovery.Models.Favorites;
 import com.example.discovery.Models.Park;
 import com.example.discovery.R;
 import com.example.discovery.ViewModels.FavoriteViewModel;
+import com.example.discovery.ViewModels.ParkViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerViewAdapter.ViewHolder> {
+public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerViewAdapter.ViewHolder> implements OnParkClickListener{
     private final List<Park> parkList;
     private final OnParkClickListener parkClickListener;
     public ViewPagerAdapter viewPagerAdapter;
+    private AppCompatActivity activity;
+    private ParkViewModel parkViewModel;
 
 
-    public ParkRecyclerViewAdapter(List<Park> parkList, OnParkClickListener onParkClickListener)  {
+
+    public ParkRecyclerViewAdapter(List<Park> parkList, OnParkClickListener parkClickListener, ViewModelStoreOwner activity, AppCompatActivity activity1)  {
         this.parkList = parkList;
-        this.parkClickListener = onParkClickListener;
+        this.parkClickListener = parkClickListener;
+        this.activity = activity1;
+        parkViewModel = ParkViewModel.getInstance(activity);
     }
+
+
 
 
     @NonNull
@@ -88,18 +98,9 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
             }
         });
 
-        viewPagerAdapter = new ViewPagerAdapter(park.getImages());
+        viewPagerAdapter = new ViewPagerAdapter(park,this);
         holder.viewPager.setAdapter(viewPagerAdapter);
 
-//        if (park.getImages().size() > 0) {
-//            Picasso.get()
-//                    .load(park.getImages().get(0).getUrl())
-//                    .placeholder(android.R.drawable.stat_sys_download)
-//                    .error(android.R.drawable.stat_notify_error)
-//                    .fit()
-//                    .centerCrop()
-//                    .into(holder.parkImage);
-//        }
     }
 
 
@@ -109,14 +110,29 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
         return parkList.size();
     }
 
+    @Override
+    public void onParkClicked(Park park) {
+        Log.d("Park", "onclick:" + park.getFullName());
+
+        parkViewModel.setSelectedPark(park);
+        Log.d("Park", "onclick:" + parkViewModel.getSelectedPark().getValue());
+        parkViewModel.setSelectedPark(park);
+        activity.getSupportFragmentManager()
+                .beginTransaction().replace(R.id.park_list, DetailsFragment.newInstance())
+                .commit();
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private final OnParkClickListener onParkClickListener;
         public ImageView parkImage;
         public TextView parkName;
         public TextView parkType;
         ViewPager2 viewPager;
         public ToggleButton fav;
         public ToggleButton schedule;
-        OnParkClickListener onParkClickListener;
+        public View view;
+
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -127,6 +143,7 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
             viewPager = itemView.findViewById(R.id.detail_viewPager);
             fav = itemView.findViewById(R.id.fav_btn);
             schedule = itemView.findViewById(R.id.schedule_btn);
+            view = itemView.findViewById(R.id.row_layout);
 
             this.onParkClickListener = parkClickListener;
             itemView.setOnClickListener(this);

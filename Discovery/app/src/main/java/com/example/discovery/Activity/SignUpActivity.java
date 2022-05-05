@@ -73,6 +73,7 @@ public class SignUpActivity extends AppCompatActivity {
         String lName = inputLname.getText().toString().trim();
         String password = inputPassword.getText().toString().trim();
         String rePasword = inputRE_Password.getText().toString().trim();
+        Session session = Session.getInstance();
 
         Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
 
@@ -96,6 +97,9 @@ public class SignUpActivity extends AppCompatActivity {
                             assert currentUser != null;
                             String currentUserId = currentUser.getUid();
 
+
+
+
                             // set the value in the User Object
                             user.setUserId(currentUserId);
                             user.setFirstName(fName);
@@ -109,14 +113,10 @@ public class SignUpActivity extends AppCompatActivity {
                                             .get()
                                             .addOnCompleteListener(task1 -> {
                                                 if(task1.getResult().exists()){
-                                                    String name = task1.getResult().getString(Util.KEY_FNAME)
-                                                            + " " + task1.getResult().getString(Util.KEY_LNAME);
-
-                                                    Session session = Session.getInstance();
                                                     session.setUserId(currentUserId);
-                                                    session.setUserName(name);
-
+                                                    session.setUserName(fName + " " + lName);
                                                     startActivity(intent);
+
                                                 }
                                             }
                                     )).addOnFailureListener(e -> {});
@@ -127,4 +127,5 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(this, "Please entre all the fields", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

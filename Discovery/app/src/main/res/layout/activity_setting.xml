@@ -66,18 +66,32 @@
             app:layout_constraintTop_toBottomOf="@+id/textName">
 
             <RelativeLayout
-                android:layout_width="249dp"
-                android:layout_height="315dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
                 android:layout_margin="5dp"
                 android:background="@color/white"
                 android:padding="15dp">
 
 
                 <EditText
+                    android:id="@+id/editEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/editTextLastName"
+                    android:layout_marginTop="6dp"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+                <EditText
                     android:id="@+id/editTextFirstName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:editable="false"
                     android:ems="10"
+                    android:enabled="false"
                     android:hint="First name"
                     android:inputType="textPersonName"
                     android:text="" />
@@ -94,17 +108,6 @@
                     android:text="" />
 
                 <EditText
-                    android:id="@+id/editEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/editTextLastName"
-                    android:layout_marginTop="6dp"
-                    android:ems="10"
-                    android:hint="Email"
-                    android:inputType="textPersonName"
-                    android:text="" />
-
-                <EditText
                     android:id="@+id/editPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,17 +115,6 @@
                     android:layout_marginTop="6dp"
                     android:ems="10"
                     android:hint="Password"
-                    android:inputType="textPersonName"
-                    android:text="" />
-
-                <EditText
-                    android:id="@+id/editRePassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/editPassword"
-                    android:layout_marginTop="6dp"
-                    android:ems="10"
-                    android:hint="Re-password"
                     android:inputType="textPersonName"
                     android:text="" />
 

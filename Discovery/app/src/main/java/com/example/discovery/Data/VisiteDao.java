@@ -50,19 +50,6 @@ public class VisiteDao {
 
     public Query removeViste(Visit visit) {
         return visitModel.orderByChild("userId").equalTo(Session.getInstance().getUserId());
-
-
-//                whereEqualTo("userId", Session.getInstance().getUserId()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @Override
-//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                for(QueryDocumentSnapshot value : queryDocumentSnapshots){
-//                    Park park = value.get("park", Park.class);
-//                    if(park.getId().equals(visit.getPark().getId())){
-//                        visitModel.document(value.getId()).delete();
-//                    }
-//                }
-//            }
-//        });
     }
 
     public  Task<Void> updateVisit (Visit visit, String visit_id) {

@@ -51,14 +51,12 @@ public class ParksListActivity extends AppCompatActivity implements OnParkClickL
      public void loadParkList(){
          if (parkViewModel.getParks().getValue() != null) {
              parkList = parkViewModel.getParks().getValue();
-             parkRecyclerViewAdapter = new ParkRecyclerViewAdapter(parkList, this);
+             parkRecyclerViewAdapter = new ParkRecyclerViewAdapter(parkList, this, this, this);
 
              recyclerView.setAdapter(parkRecyclerViewAdapter);
              recyclerView.setHasFixedSize(true);
              recyclerView.setLayoutManager(new LinearLayoutManager(this));
          }
-
-
      }
 
     @Override
@@ -66,8 +64,10 @@ public class ParksListActivity extends AppCompatActivity implements OnParkClickL
         Log.d("Park", "onclick:" + park.getFullName());
         parkViewModel.setSelectedPark(park);
         Log.d("Park", "onclick:" + parkViewModel.getSelectedPark().getValue());
+        parkViewModel.setSelectedPark(park);
         getSupportFragmentManager()
                 .beginTransaction().replace(R.id.park_list, DetailsFragment.newInstance())
                 .commit();
+
     }
 }

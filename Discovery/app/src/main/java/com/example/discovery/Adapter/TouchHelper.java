@@ -2,7 +2,6 @@ package com.example.discovery.Adapter;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -19,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.discovery.Models.Visit;
 import com.example.discovery.R;
-import com.example.discovery.Util.Session;
 import com.example.discovery.ViewModels.VisiteViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.squareup.picasso.Picasso;
@@ -54,17 +52,8 @@ public class TouchHelper extends ItemTouchHelper.SimpleCallback {
             AlertDialog.Builder builder = new AlertDialog.Builder(adapter.getContext());
             builder.setMessage("Are You Sure?")
                     .setTitle("Delete Visit")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            adapter.deleteVisit(position);
-                        }
-                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    adapter.notifyItemChanged(position);
-                }
-            });
+                    .setPositiveButton("Yes", (dialogInterface, i) -> adapter.deleteVisit(position))
+                    .setNegativeButton("No", (dialogInterface, i) -> adapter.notifyItemChanged(position));
             AlertDialog dialog = builder.create();
             dialog.show();
         }else{
@@ -82,6 +71,7 @@ public class TouchHelper extends ItemTouchHelper.SimpleCallback {
             TextView date = bottonSheetView.findViewById(R.id.date_textView);
 
             CalendarView calendarView = bottonSheetView.findViewById(R.id.calen_view);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
             park_name.setText(oldvisit.getPark().getFullName());
             state.setText(oldvisit.getPark().getStates());
@@ -94,15 +84,13 @@ public class TouchHelper extends ItemTouchHelper.SimpleCallback {
                     .centerCrop()
                     .into(imageView);
 
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
 
             calendarView.setDate(oldvisit.getDate().getTime(), true, true);
+            notes.setText(oldvisit.getNote());
 
 
             Visit visit = new Visit();
-
-
-
             calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
                 @Override
                 public void onSelectedDayChange(@NonNull CalendarView calendarView1, int i, int i1, int i2) {
@@ -115,21 +103,14 @@ public class TouchHelper extends ItemTouchHelper.SimpleCallback {
                 }
             });
 
-
-
             bottonSheetView.findViewById(R.id.scheduleBtn).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     visit.setPark(oldvisit.getPark());
-                    visit.setUserId(Session.getInstance().getUserId());
+                    visit.setUserId(oldvisit.getUserId());
                     visit.setNote(notes.getText().toString().trim());
-
                     visit.setStatus(false);
-//                   visit.setTimestamp(new Timestamp(System.currentTimeMillis()));
-//                    Log.d("VisitViewModel", oldvisit.get)
-
-
                     VisiteViewModel.updateVisit(visit, oldvisit.getId());
                     Toast.makeText(adapter.getContext(), "Update", Toast.LENGTH_SHORT);
                     bottomSheetDialog.dismiss();
