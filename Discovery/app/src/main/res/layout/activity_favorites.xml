@@ -10,32 +10,58 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fav_recycler"
-        android:layout_width="383dp"
-        android:layout_height="569dp"
+        android:layout_width="374dp"
+        android:layout_height="544dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="56dp"
         android:background="@color/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.556" />
+        app:layout_constraintTop_toBottomOf="@+id/header_lyt" />
 
-    <TextView
-        android:id="@+id/Fav_textView"
-        android:layout_width="367dp"
-        android:layout_height="77dp"
-        android:padding="8dp"
-        android:text="Favorites"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="40sp"
+    <LinearLayout
+        android:id="@+id/header_lyt"
+        android:layout_width="395dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/fav_recycler"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.477" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="115dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/fav_recycler"
+            app:layout_constraintEnd_toStartOf="@+id/ListPark_textView"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.232"
+            app:srcCompat="@drawable/ic_baseline_theater_comedy_24" />
+
+        <TextView
+            android:id="@+id/ListPark_textView"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Favorite"
+            android:textAlignment="gravity"
+            android:textColor="@color/headerColor"
+            android:textSize="40sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.639"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

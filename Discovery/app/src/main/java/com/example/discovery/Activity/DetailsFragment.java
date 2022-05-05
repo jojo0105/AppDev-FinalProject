@@ -109,7 +109,7 @@ public class DetailsFragment extends Fragment {
                 viewPagerAdapter = new ViewPagerAdapter(park);
                 viewPager.setAdapter(viewPagerAdapter);
 
-                description.setText(park.getDescription());
+                description.setText ("\t\t\t" + park.getDescription());
 
                 //Activities
                 StringBuilder stringBuilder = new StringBuilder();
@@ -184,6 +184,15 @@ public class DetailsFragment extends Fragment {
                         });
                     }
                 });
+
+                VisiteViewModel.getAllVisit(visits -> {
+                    for(Visit visPark : visits){
+                        if(visPark.getPark().getId().equals(park.getId())){
+                        add.setChecked(true);
+                    }
+                }
+            });
+
 
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override

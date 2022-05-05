@@ -39,7 +39,7 @@
         <activity
             android:name=".Activity.MapsActivity"
             android:exported="true"
-            android:label="@string/title_activity_maps_actitviy"></activity>
+            android:label="@string/title_activity_maps_actitviy"/>
         <activity
             android:name=".Activity.LoginActivity"
             android:exported="true">

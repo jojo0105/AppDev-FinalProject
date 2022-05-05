@@ -2,7 +2,9 @@ package com.example.discovery.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,10 +31,14 @@ public class VisitActivity extends AppCompatActivity {
         initComponent();
         loadVisit();
 
-        bottomNavigationView.setOnNavigationItemReselectedListener(item -> {
-            Util.MenuClick(item, getApplicationContext());
+        bottomNavigationView.setSelectedItemId(R.id.visit_nav_btn);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Util.MenuClick(item, getApplicationContext());
+                return false;
+            }
         });
-
     }
 
     public void initComponent(){

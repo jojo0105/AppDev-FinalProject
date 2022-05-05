@@ -15,11 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.discovery.Activity.DetailsFragment;
+import com.example.discovery.Data.FireBaseCallBackVisit;
 import com.example.discovery.Models.Favorites;
 import com.example.discovery.Models.Park;
+import com.example.discovery.Models.Visit;
 import com.example.discovery.R;
 import com.example.discovery.ViewModels.FavoriteViewModel;
 import com.example.discovery.ViewModels.ParkViewModel;
+import com.example.discovery.ViewModels.VisiteViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -32,8 +35,6 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
     public ViewPagerAdapter viewPagerAdapter;
     private AppCompatActivity activity;
     private ParkViewModel parkViewModel;
-
-
 
     public ParkRecyclerViewAdapter(List<Park> parkList, OnParkClickListener parkClickListener, ViewModelStoreOwner activity, AppCompatActivity activity1)  {
         this.parkList = parkList;
@@ -49,12 +50,13 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.park_row, parent, false);
-
         return new ViewHolder(view);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Log.d("position"," p" +position);
         Park park = parkList.get(position);
 
         holder.parkName.setText(park.getName());
@@ -65,6 +67,18 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
             for(Park favPark : allFav){
                 if(favPark.getId().equals(park.getId())){
                     holder.fav.setChecked(true);
+                }
+            }
+        });
+
+
+        VisiteViewModel.getAllVisit(new FireBaseCallBackVisit() {
+            @Override
+            public void onVisitResponse(List<Visit> visits) {
+                for(Visit visPark : visits){
+                    if(visPark.getPark().getId().equals(park.getId())){
+                        holder.schedule.setChecked(true);
+                    }
                 }
             }
         });
@@ -89,7 +103,7 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
                     }
                 });
             }
-            
+
         });
 
         holder.schedule.setOnClickListener(view -> {
@@ -103,12 +117,11 @@ public class ParkRecyclerViewAdapter extends RecyclerView.Adapter<ParkRecyclerVi
 
     }
 
-
-
     @Override
     public int getItemCount() {
         return parkList.size();
     }
+
 
     @Override
     public void onParkClicked(Park park) {

@@ -101,37 +101,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.maps_nav_btn);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             Util.MenuClick(item, getApplicationContext());
-
-//            if(id == R.id.maps_nav_btn){
-//                if (cardView.getVisibility() == View.INVISIBLE ||
-//                        cardView.getVisibility() == View.GONE) {
-//                    cardView.setVisibility(View.VISIBLE);
-//                }
-//                parkList.clear();
-//                mMap.clear();
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.map, mapFragment)
-//                        .commit();
-//               mapFragment.getMapAsync(this);
-//                 return true;
-//            }else if (id == R.id.parks_nav_btn){
-//                cardView.setVisibility(View.GONE);
-//                Intent intent = new Intent(getApplicationContext(), ParksListActivity.class);
-//                startActivity(intent);
-//
-//               // selectedFragment = ParksFragment.newInstance();
-//            }else if (id == R.id.fav_nav_btn){
-//                selectedFragment = FavoritesFragment.newInstance();
-//                cardView.setVisibility(View.GONE);
-//            }else if (id == R.id.setting_nav_btn){
-//                selectedFragment = SettingFragment.newInstance();
-//                cardView.setVisibility(View.GONE);
-//            }
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.map, selectedFragment)
-//                    .commit();
             return true;
         });
     }
@@ -151,6 +123,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setInfoWindowAdapter(new CustomInfoWindow(getApplicationContext()));
         mMap.setOnInfoWindowClickListener(this);
+
 
         parkList = new ArrayList<>();
         parkList.clear();
@@ -182,42 +155,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         },code);
     }
-
-
-//    public void onFavoriteParkClick(View view) {
-//        ToggleButton toggleButton = view.findViewById(R.id.fav_btn);
-//
-//        Log.d("Fav_Click", "here");
-//        Park park = parkViewModel.getSelectedPark().getValue();
-       // Log.d("Fav_Click", park.getId());
-//            if(toggleButton.isChecked()){
-//                Log.d("Fav_Click", toggleButton.isChecked() + "");
-//                Favorites favorite = new Favorites();
-//                favorite.setParkId(park.getId());
-//                favorite.setUserId(currentUserId);
-//
-//                Log.d("Fav_Click", favorite.getParkId() + " " + favorite.getUserId());
-//                favModels.add(favorite).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d("Fav_Click", "added");
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.d("Fav_Click", e.toString());
-//                    }
-//                });
-//            } else {
-//                //
-//            }
-
-
-        //TO-DO: insert the favorite into the Favorite table fav_Table [fav_id, user_id, park_id]
-//        Toast.makeText(this,"Added to Favorites",Toast.LENGTH_SHORT).show();
-//    }
-
-
 
     @Override
     public void onInfoWindowClick(@NonNull Marker marker) {

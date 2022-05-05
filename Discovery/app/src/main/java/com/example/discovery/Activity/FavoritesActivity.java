@@ -2,7 +2,9 @@ package com.example.discovery.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,8 +33,15 @@ public class FavoritesActivity extends AppCompatActivity implements OnParkClickL
         initComponent();
         loadFavPark();
 
-        bottomNavigationView.setOnNavigationItemReselectedListener(item -> {
-            Util.MenuClick(item, getApplicationContext());
+        bottomNavigationView.setSelectedItemId(R.id.fav_nav_btn);
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Util.MenuClick(item, FavoritesActivity.this.getApplicationContext());
+                return true;
+            }
         });
     }
 

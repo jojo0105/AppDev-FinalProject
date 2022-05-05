@@ -4,9 +4,11 @@
 
     <item
         android:id="@+id/maps_nav_btn"
+        android:checkable="false"
+        android:checked="false"
         android:icon="@drawable/ic_baseline_map_24"
-        app:showAsAction="ifRoom"
-        android:title="Map" />
+        android:title="Map"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/parks_nav_btn"
         android:icon="@drawable/ic_baseline_nature_people_24"
@@ -16,7 +18,7 @@
         android:id="@+id/fav_nav_btn"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_baseline_favorite_24"
-        android:title="To-Visit" />
+        android:title="Fav" />
 
     <item
         android:id="@+id/visit_nav_btn"

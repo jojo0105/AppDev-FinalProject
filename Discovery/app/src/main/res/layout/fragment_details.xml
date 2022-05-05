@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_details"
     android:layout_width="match_parent"
@@ -13,171 +13,109 @@
         android:layout_height="match_parent"
         android:backgroundTint="@color/white"
         android:padding="8dp"
-        android:paddingBottom="8dp">
+        android:paddingBottom="8dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="142dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/detail_parkName_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/detail_park_designation_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="#56B15A" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/detail_viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="225dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ToggleButton
-                    android:id="@+id/fav_btn"
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/fav_place"
-                    android:textOff=" Favorite a place"
-                    android:textOn=""
-                    android:textSize="10sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="       "
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/detail_viewPager"
+                    android:layout_width="174dp"
+                    android:layout_height="233dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="       "
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="       "
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="       "
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-                <ToggleButton
-                    android:id="@+id/add_review_btn"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/add_review"
-                    android:onClick="review"
-                    android:textOff="Add a review"
-                    android:textOn=""
-                    android:textSize="10sp" />
+                </androidx.viewpager2.widget.ViewPager2>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="       "
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="       "
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="       "
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="       "
-                    android:textColor="@color/black"
-                    android:textSize="9sp"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="189dp"
+                    android:layout_height="230dp"
+                    android:layout_gravity="center|top"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <ToggleButton
-                    android:id="@+id/detail_scheduleVisit_btn"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/added_items"
-                    android:onClick="onAddedScheduleClick"
-                    android:textOff="Schedule"
-                    android:textOn=""
-                    android:textSize="10sp" />
+                    <TextView
+                        android:id="@+id/detail_parkName_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/detail_park_designation_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView"
+                        android:textColor="#56B15A" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="90dp"
+                        android:text="       "
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <ToggleButton
+                        android:id="@+id/add_review_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="19dp"
+                        android:layout_gravity="left"
+                        android:background="@android:color/transparent"
+                        android:onClick="review"
+                        android:padding="4dp"
+                        android:textAlignment="textStart"
+                        android:textOff="Review"
+                        android:textOn="Review"
+                        android:textSize="10sp" />
+
+
+                    <ToggleButton
+                        android:id="@+id/fav_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:layout_gravity="left"
+                        android:background="@android:color/transparent"
+                        android:padding="4dp"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/fav_place"
+                        android:textOff="@string/favorite_a_place"
+                        android:textOn="@string/favorite_a_place"
+                        android:textSize="10sp" />
+
+                    <ToggleButton
+                        android:id="@+id/detail_scheduleVisit_btn"
+                        android:layout_width="103dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="left"
+                        android:background="@android:color/transparent"
+                        android:onClick="onAddedScheduleClick"
+                        android:padding="4dp"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/added_items"
+                        android:textOff="Schedule a Visit"
+                        android:textOn="Schedule a Visit"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
 
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:paddingLeft="8dp"
-                android:text="Description"
-                android:textAlignment="textStart"
-                android:textColor="#070707"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-
-            <TextView
-                android:id="@+id/details_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="6dp"
-                android:textAlignment="textStart" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:paddingLeft="6dp"
-                android:text="Activities"
-                android:textColor="#070707"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/details_activities"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:paddingLeft="6dp"
-                android:text="TextView" />
-
 
             <TextView
                 android:id="@+id/textView13"
@@ -195,8 +133,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:paddingLeft="6dp"
+                android:gravity="center"
+                android:padding="15dp"
                 android:text="Topics" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingLeft="8dp"
+                android:text="Description"
+                android:textAlignment="textStart"
+                android:textColor="#070707"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/details_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="15dp"
+                android:paddingLeft="6dp"
+                android:textAlignment="inherit" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -214,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:paddingStart="6dp"
+                android:paddingStart="15dp"
                 android:text="TextView" />
 
             <TextView
@@ -231,10 +192,32 @@
             <TextView
                 android:id="@+id/details_operatinghours"
                 android:layout_width="wrap_content"
-                android:layout_height="130dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:paddingStart="6dp"
+                android:padding="10dp"
+                android:paddingStart="15dp"
                 android:text="TextView" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="6dp"
+                android:text="Activities"
+                android:textColor="#070707"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/details_activities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="TextView" />
+
 
             <TextView
                 android:id="@+id/textView22"
@@ -251,8 +234,10 @@
 
             <TextView
                 android:id="@+id/details_directions"
-                android:layout_width="match_parent"
+                android:layout_width="371dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingStart="15dp"
                 android:paddingLeft="6dp"
                 android:paddingBottom="70dp"
                 android:textAlignment="textStart" />
@@ -262,4 +247,4 @@
     </ScrollView>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

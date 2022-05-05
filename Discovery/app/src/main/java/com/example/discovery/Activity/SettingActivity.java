@@ -2,9 +2,11 @@ package com.example.discovery.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.discovery.Data.FirebaseCallBackUser;
@@ -37,11 +39,14 @@ public class SettingActivity extends AppCompatActivity {
         initComponent();
         displayUser();
 
-
-        bottomNavigationView.setOnNavigationItemReselectedListener(item -> {
-            Util.MenuClick(item, getApplicationContext());
+        bottomNavigationView.setSelectedItemId(R.id.setting_nav_btn);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Util.MenuClick(item, getApplicationContext());
+                return false;
+            }
         });
-
     }
 
 

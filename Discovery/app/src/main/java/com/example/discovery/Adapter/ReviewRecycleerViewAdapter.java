@@ -41,6 +41,8 @@ public class ReviewRecycleerViewAdapter  extends RecyclerView.Adapter<ReviewRecy
         return reviews.size();
     }
 
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView userName;
         private TextView comment;

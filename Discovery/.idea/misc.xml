@@ -7,6 +7,8 @@
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/drawable/bg_calen.xml" value="0.129" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/drawable/bottom_background_light_green.xml" value="0.129" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/drawable/card_park_row.xml" value="0.1" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/drawable/fav_place.xml" value="0.1" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/drawable/ic_baseline_today_24.xml" value="0.1" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/drawable/rounded_row.xml" value="0.1" />
@@ -14,21 +16,22 @@
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/drawable/schedule_popup.xml" value="0.1" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/drawable/schedules_selector.xml" value="0.1" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/drawable/toggle_selector.xml" value="0.1935" />
-        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_favorites.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_favorites.xml" value="0.22" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_github_auth.xml" value="0.25555555555555554" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_login.xml" value="0.3125" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_maps_actitviy.xml" value="0.25833333333333336" />
-        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_parks_list.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_parks_list.xml" value="0.25" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_setting.xml" value="0.24814814814814815" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_sign_up.xml" value="0.25555555555555554" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_splash.xml" value="0.25555555555555554" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/activity_visit.xml" value="0.25555555555555554" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/custom_info_window.xml" value="0.25555555555555554" />
-        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/fragment_details.xml" value="0.1" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/fragment_details.xml" value="0.4448844884488449" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/fragment_favorites.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/fragment_parks.xml" value="0.27314814814814814" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/fragment_setting.xml" value="0.24814814814814815" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/park_row.xml" value="0.5" />
+        <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/parklist_header.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/review_layout.xml" value="0.1" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/review_row.xml" value="0.33" />
         <entry key="..\:/Users/danic/OneDrive/Desktop/AppDev-FinalProject/Discovery/app/src/main/res/layout/schedule_layout.xml" value="0.33" />

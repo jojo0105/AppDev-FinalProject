@@ -2,7 +2,9 @@ package com.example.discovery.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +35,7 @@ public class ParksListActivity extends AppCompatActivity implements OnParkClickL
         initComponent();
         loadParkList();
 
+        bottomNavigationView.setSelectedItemId(R.id.parks_nav_btn);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             Util.MenuClick(item, getApplicationContext());
             return true;
@@ -69,5 +72,10 @@ public class ParksListActivity extends AppCompatActivity implements OnParkClickL
                 .beginTransaction().replace(R.id.park_list, DetailsFragment.newInstance())
                 .commit();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }
