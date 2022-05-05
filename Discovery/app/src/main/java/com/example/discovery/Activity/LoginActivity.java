@@ -3,7 +3,6 @@ package com.example.discovery.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,21 +34,26 @@ public class LoginActivity extends AppCompatActivity {
     private Button google;
     private Button github;
     private TextView error;
+    private TextView signup;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     private CollectionReference userModels = DB.selectCollection();
 
-
     private GoogleSignInOptions gso;
     private GoogleSignInClient googleSignInClient;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public void initComponent(){
+        loginEmail = findViewById(R.id.loginEmail_editText);
+        loginPassword = findViewById(R.id.loginPassword_editText);
+        google = findViewById(R.id.googleLogin_btn);
+        login = findViewById(R.id.login_btn);
+        error = findViewById(R.id.error_textView);
+        signup = findViewById(R.id.signUp);
 
+    }
 
+    public void initConnection(){
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -57,14 +61,15 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
+    }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        initComponent();
+        initConnection();
 
-        loginEmail = findViewById(R.id.loginEmail_editText);
-        loginPassword = findViewById(R.id.loginPassword_editText);
-        login = findViewById(R.id.login_btn);
-        error = findViewById(R.id.error_textView);
-
-        TextView signup = findViewById(R.id.signUp);
         signup.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
             startActivity(intent);
@@ -75,8 +80,6 @@ public class LoginActivity extends AppCompatActivity {
             login();
         });
 
-        google = findViewById(R.id.googleLogin_btn);
-
         google.setOnClickListener(view -> {
             googleLogin();
         });
@@ -86,9 +89,6 @@ public class LoginActivity extends AppCompatActivity {
         github.setOnClickListener(view->{
             githubLogin();
         });
-        
-
-
     }
 
     private void githubLogin() {
@@ -106,19 +106,11 @@ public class LoginActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             firebaseAuth.signInWithEmailAndPassword(email, password).onSuccessTask(task -> {
-//
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-
                 String currentUserId = user.getUid();
-
-
-
 
                 userModels.whereEqualTo(Util.KEY_USERID, currentUserId)
                         .addSnapshotListener((values, error) -> {
-                            if (error != null) {
-                            }
-
                             assert values != null;
                             if (!values.isEmpty()) {
                                 for (QueryDocumentSnapshot value : values) {
@@ -130,17 +122,13 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
-                Log.d("Session", "User_name" + Session.getInstance().getUserName());
-                Log.d("Session", "User_id" + Session.getInstance().getUserId());
                 startActivity(intent);
                 return null;
             }).addOnFailureListener(e -> {
                 error.setText("Incorrect Email or Password");
-                // Toast.makeText(this, "Incorrect Email or Password", Toast.LENGTH_SHORT).show();
             });
         } else {
             error.setText("Please entre email and password ");
-//            Toast.makeText(this, "Please entre email and password ", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -156,14 +144,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void googleLogin() {
-        Intent signInIntent = googleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent,1000);
+        Intent googleSignIn = googleSignInClient.getSignInIntent();
+        startActivityForResult(googleSignIn,100);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1000){
+        if(requestCode == 100){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 task.getResult(ApiException.class);
@@ -173,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-    void navigateToSecondActivity() {
+    private void navigateToSecondActivity() {
         finish();
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);

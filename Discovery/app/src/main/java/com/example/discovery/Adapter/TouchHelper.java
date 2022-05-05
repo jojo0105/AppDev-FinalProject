@@ -67,8 +67,6 @@ public class TouchHelper extends ItemTouchHelper.SimpleCallback {
             TextView type =  bottonSheetView.findViewById(R.id.popUp_row_park_type_textView);
             ImageView imageView = bottonSheetView.findViewById(R.id.popUp_row_park_imageView);
             EditText notes = bottonSheetView.findViewById(R.id.notes_editText);
-            TextView textDate =  bottonSheetView.findViewById(R.id.Visit_Date_textView);
-            TextView date = bottonSheetView.findViewById(R.id.date_textView);
 
             CalendarView calendarView = bottonSheetView.findViewById(R.id.calen_view);
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
