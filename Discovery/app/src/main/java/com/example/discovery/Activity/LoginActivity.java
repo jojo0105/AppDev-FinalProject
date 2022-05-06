@@ -170,6 +170,7 @@ public class LoginActivity extends AppCompatActivity {
         Session session = Session.getInstance();
         session.setUserId(currUser.getId());
         session.setEmail(currUser.getEmail());
+        session.setUserName(currUser.getGivenName() + " " + currUser.getFamilyName());
     }
 
 

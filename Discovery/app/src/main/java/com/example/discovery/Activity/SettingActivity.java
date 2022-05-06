@@ -108,7 +108,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void displayUser() {
-        if (user != null && firebaseAuth != null) {
+        if(user != null && firebaseAuth != null){
             UserViewModel.getUser(new FirebaseCallBackUser() {
                 @Override
                 public void onUseResponse(User user) {
@@ -124,6 +124,13 @@ public class SettingActivity extends AppCompatActivity {
                 }
 
             });
+        }else if (googleSignInClient != null){
+            String[] name = Session.getInstance().getUserName().split(" ");
+            firstname.setText(name[0]);
+            lastName.setText(name[1]);
+            email.setText(Session.getInstance().getEmail());
+            password.setText("**************");
         }
+
     }
 }
