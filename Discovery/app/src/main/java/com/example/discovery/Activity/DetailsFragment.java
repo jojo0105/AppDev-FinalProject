@@ -25,7 +25,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.discovery.Adapter.ReviewRecycleerViewAdapter;
 import com.example.discovery.Adapter.ViewPagerAdapter;
-import com.example.discovery.Data.FirebaseCallBackUser;
 import com.example.discovery.Models.Favorites;
 import com.example.discovery.Models.Park;
 import com.example.discovery.Models.Review;
@@ -263,12 +262,7 @@ public class DetailsFragment extends Fragment {
             }
         });
 
-        UserViewModel.getUser(new FirebaseCallBackUser() {
-            @Override
-            public void onUseResponse(User user) {
-                visit.setUserId(user.getUserId());
-            }
-        });
+        UserViewModel.getUser(user -> visit.setUserId(user.getUserId()));
 
         bottonSheetView.findViewById(R.id.scheduleBtn).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -107,21 +107,23 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
-    public void displayUser(){
-        UserViewModel.getUser(new FirebaseCallBackUser() {
-            @Override
-            public void onUseResponse(User user) {
-                firstname.setText(user.getFirstName());
-                lastName.setText(user.getLastname());
-                email.setText(user.getEmail());
-                char[] pwdChar = user.getPassword().toCharArray();
-                String displayPassword = "";
-                for(int i = 0; i < pwdChar.length;i++){
-                    displayPassword += "*";
+    public void displayUser() {
+        if (user != null && firebaseAuth != null) {
+            UserViewModel.getUser(new FirebaseCallBackUser() {
+                @Override
+                public void onUseResponse(User user) {
+                    firstname.setText(user.getFirstName());
+                    lastName.setText(user.getLastname());
+                    email.setText(user.getEmail());
+                    char[] pwdChar = user.getPassword().toCharArray();
+                    String displayPassword = "";
+                    for (int i = 0; i < pwdChar.length; i++) {
+                        displayPassword += "*";
+                    }
+                    password.setText(displayPassword);
                 }
-                password.setText(displayPassword);
-            }
-        });
 
+            });
+        }
     }
 }

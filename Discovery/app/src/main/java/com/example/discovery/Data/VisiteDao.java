@@ -25,6 +25,7 @@ public class VisiteDao {
     public Task<Void> addToViste(Visit visit) {
         String id = visitModel.push().getKey();
         visit.setId(id);
+        visit.setUserId(Session.getInstance().getUserId());
         return visitModel.child(id).setValue(visit);
     }
 

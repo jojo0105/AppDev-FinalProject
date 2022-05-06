@@ -122,7 +122,6 @@ public class LoginActivity extends AppCompatActivity {
                                     session.setUserName(name);
                                     session.setUserId(currentUserId);
                                     session.setEmail(value.getString(Util.KEY_EMAIL));
-
                                 }
                             }
                         });
@@ -150,9 +149,9 @@ public class LoginActivity extends AppCompatActivity {
         if(requestCode == 100){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-
                 task.getResult(ApiException.class);
                 navigateToSecondActivity();
+
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(),"Something went wrong", Toast.LENGTH_SHORT).show();
             }
@@ -160,8 +159,19 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void navigateToSecondActivity() {
         finish();
+        setSession();
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
+
+    private void setSession(){
+        GoogleSignInAccount currUser = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        User user1 = new User();
+        Session session = Session.getInstance();
+        session.setUserId(currUser.getId());
+        session.setEmail(currUser.getEmail());
+    }
+
+
 }
 
