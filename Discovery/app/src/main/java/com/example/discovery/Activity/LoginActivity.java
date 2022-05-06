@@ -3,7 +3,6 @@ package com.example.discovery.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.discovery.GithubAuthActivity;
+import com.example.discovery.Models.User;
 import com.example.discovery.R;
 import com.example.discovery.Util.DB;
 import com.example.discovery.Util.Session;
@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView error;
     private TextView signup;
 
+
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     private CollectionReference userModels = DB.selectCollection();
@@ -51,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
         error = findViewById(R.id.error_textView);
         signup = findViewById(R.id.signUp);
 
+
+
     }
 
     public void initConnection(){
@@ -58,9 +61,10 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
-
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
+
+
     }
 
     @Override
@@ -132,16 +136,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void signOut(View view) {
-        if (user != null && firebaseAuth != null) {
-            firebaseAuth.signOut();
-            Session.getInstance().setUserId("");
-            Session.getInstance().setUserName("");
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
-        }
-
-    }
 
     public void googleLogin() {
         Intent googleSignIn = googleSignInClient.getSignInIntent();
@@ -151,9 +146,11 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        User user = new User();
         if(requestCode == 100){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
+
                 task.getResult(ApiException.class);
                 navigateToSecondActivity();
             } catch (ApiException e) {
